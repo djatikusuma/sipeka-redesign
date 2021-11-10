@@ -1,0 +1,69 @@
+/* 
+
+.exact-active a {
+  background-color: #009933 !important;
+}
+
+
+.exact-active a i,
+.exact-active a p {
+  color: white !important;
+}
+
+.navbar.navbar-default {
+  background-color: #009933 !important;
+}
+
+.btn.btn-primary {
+  background-color: #009933 !important;
+}
+
+.btn.btn-primary, 
+.btn.btn-primary:hover, 
+.btn.btn-primary:focus, 
+.btn.btn-primary:active, 
+.btn.btn-primary.active, 
+.btn.btn-primary:active:focus, 
+.btn.btn-primary:active:hover, 
+.btn.btn-primary.active:focus, 
+.btn.btn-primary.active:hover, 
+.open > .btn.btn-primary.dropdown-toggle, 
+.open > .btn.btn-primary.dropdown-toggle:focus, 
+.open > .btn.btn-primary.dropdown-toggle:hover, 
+.navbar .navbar-nav > li > a.btn.btn-primary, 
+.navbar .navbar-nav > li > a.btn.btn-primary:hover, 
+.navbar .navbar-nav > li > a.btn.btn-primary:focus, 
+.navbar .navbar-nav > li > a.btn.btn-primary:active, 
+.navbar .navbar-nav > li > a.btn.btn-primary.active, 
+.navbar .navbar-nav > li > a.btn.btn-primary:active:focus, 
+.navbar .navbar-nav > li > a.btn.btn-primary:active:hover, 
+.navbar .navbar-nav > li > a.btn.btn-primary.active:focus, 
+.navbar .navbar-nav > li > a.btn.btn-primary.active:hover, 
+.open > .navbar .navbar-nav > li > a.btn.btn-primary.dropdown-toggle, 
+.open > .navbar .navbar-nav > li > a.btn.btn-primary.dropdown-toggle:focus, 
+.open > .navbar .navbar-nav > li > a.btn.btn-primary.dropdown-toggle:hover {
+  background-color: #009933 !important;
+}
+
+.pagination > .active > a, 
+.pagination > .active > a:focus, 
+.pagination > .active > a:hover, 
+.pagination > .active > span, 
+.pagination > .active > span:focus, 
+.pagination > .active > span:hover {
+  background-color: #009933 !important;
+}
+
+.full-page::before {
+  background-color: white !important;
+}
+
+.full-page .footer nav > ul a:not(.btn), 
+.full-page .footer,
+.full-page .footer .copyright a {
+  color: #222222 !important;
+} */
+
+table.table tbody tr td {
+  vertical-align: middle!important;
+}
