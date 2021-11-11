@@ -24,7 +24,7 @@
         <div class="page d-flex flex-row flex-column-fluid">
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
 
-                <div id="kt_header" style="" class="header align-items-stretch">
+                {{-- <div id="kt_header" style="" class="header align-items-stretch">
                     <!--begin::Container-->
                     <div class="container-fluid d-flex align-items-stretch justify-content-between">
                         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
@@ -37,8 +37,9 @@
                         <!--end::Wrapper-->
                     </div>
                     <!--end::Container-->
-                </div>
+                </div> --}}
 
+                @include('layouts.partial._header_guest')
 
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                     <div class="post d-flex flex-column-fluid" id="kt_post">

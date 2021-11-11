@@ -15,12 +15,13 @@
                 <tr>
                     <td>Tanggal</td>
                     <td>:</td>
-                    <td><strong>{{ $event->meeting_date }}</strong></td>
+                    <td><strong>{{ Carbon\Carbon::parse($event->meeting_date)->format('d F Y H:i') }}</strong></td>
                 </tr>
                 <tr>
                     <td>Meeting ID</td>
                     <td>:</td>
-                    <td><strong>{{ $event->meeting_id }}</strong></td>
+                    <td><strong>{{ preg_replace('/(\d{3})(\d{4})(\d{4})/', "$1 $2 $3", $event->meeting_id) }}</strong>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -38,8 +39,7 @@
                         <label for="{{ $form->label }}"
                             class="{{ $form->mandatory }} fw-bold form-label">{{ $form->label }}</label>
                         <input type="text" class="form-control form-control-solid" name="{{ $form->id }}"
-                            value="{{ old($form->id) }}" placeholder="{{ $form->label }}"
-                            autocomplete="off" />
+                            value="{{ old($form->id) }}" placeholder="{{ $form->label }}" autocomplete="off" />
                         @error($form->id)
                             <div class="fv-plugins-message-container invalid-feedback">
                                 <div data-field="flatpickr_input" data-validator="notEmpty">{{ $message }}</div>
@@ -52,7 +52,7 @@
                 <div class="input-group">
                     <div class="input-group">
                         <label class="label required">Tanda Tangan</label>
-                        <div id="signature"></div>
+                        <div id="signature" class="signature"></div>
                         @error('ttd')
                             <div class="fv-plugins-message-container invalid-feedback">
                                 <div data-field="flatpickr_input" data-validator="notEmpty">{{ $message }}</div>
@@ -88,7 +88,27 @@
         #signature {
             width: 100%;
             height: auto;
-            border: 1px solid black;
+            border: 1px solid #f5f8fa;
+            background-color: #f5f8fa;
+            border-radius: .475rem;
+        }
+
+        [type="button"] {
+            display: inline-block;
+            font-weight: 500;
+            line-height: 1.5;
+            color: #181c32;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            user-select: none;
+            background-color: #fff1f1;
+            border: 1px solid #fff1f1;
+            color: #f70021;
+            padding: .5rem 1.5rem;
+            font-size: 1.1rem;
+            border-radius: .475rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
 
         .ui-widget {

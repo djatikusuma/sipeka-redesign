@@ -5,10 +5,6 @@ use App\Http\Controllers\DataMaster\UnorController;
 use App\Http\Controllers\DataMaster\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PresenceController;
-use App\Http\Controllers\SubmissionController;
-use App\Http\Controllers\SubmissionFileController;
-use App\Models\MstZoom;
-use App\Models\TrxEvent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +27,8 @@ Route::get('/presence/{id}', [PresenceController::class, 'input'])->name('presen
 Route::post('/presence/{id}', [PresenceController::class, 'store'])->name('presence.store');
 Route::get('/presence/{id}/list', [PresenceController::class, 'list'])->name('presence.list');
 Route::get('/presence/{id}/data', [PresenceController::class, 'showDatatable'])->name('presence.data');
+Route::post('/password/{id}/{type}', [PresenceController::class, 'checkPassword'])->name('password.check');
+Route::get('/event/public/list', [EventController::class, 'showDatatablePublic'])->name('event.list_public');
 
 Route::middleware(['auth', 'user.menu'])->group(function () {
     Route::get('/dashboard', function () {
@@ -111,7 +109,7 @@ Route::middleware(['auth', 'user.menu'])->group(function () {
     Route::put('/events/{id}/edit', [EventController::class, 'update'])->name('event.update');
     Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('event.delete');
 
-    Route::get('/presence/{id}/print', [PresenceController::class, 'index'])->name('presence.print');
+    Route::get('/presence/{id}/print', [PresenceController::class, 'print'])->name('presence.print');
 });
 
 require __DIR__ . '/auth.php';

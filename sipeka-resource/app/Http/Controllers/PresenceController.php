@@ -117,4 +117,30 @@ class PresenceController extends Controller
 
         return $table->make(true);
     }
+
+    public function checkPassword(Request $request, $id)
+    {
+        $event = TrxEvent::findOrFail($id);
+
+        if ($request->get('meeting_passcode') == $event->meeting_passcode){
+            return response()->json([
+                'success' => true
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Meeting Passcode tidak sama"
+            ]);
+        }
+    }
+
+    public function print($id)
+    {
+        $event = TrxEvent::with('presences')
+                ->where('id', $id)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+        return view('pages.presence.print', compact('event'));
+    }
 }
