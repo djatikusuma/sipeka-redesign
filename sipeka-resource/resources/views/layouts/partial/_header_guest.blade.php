@@ -7,7 +7,7 @@
         <!--begin::Logo-->
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
             <a href="{{ route('home') }}">
-                <img alt="Logo" src="https://petanimilenial.jabarprov.go.id/_nuxt/img/disbun.3540c8d.png"
+                <img alt="Logo" src="{{ asset('themes/metronic/img/logo.svg') }}"
                     class="h-20px h-lg-30px" />
             </a>
         </div>

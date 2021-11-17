@@ -67,8 +67,12 @@ class EventController extends Controller
             ],
         ]);
 
-        if ($this->create_zoom($request->all())) {
+        $response = $this->create_zoom($request->all());
+        if ($response) {
             return redirect()->route('event.index')->with('success', 'Berhasil menambah kegiatan');
+        }else {
+            return redirect()->route('event.index')->with('error', 'Gagal menambah kegiatan');
+            // dd($response);
         }
     }
 
@@ -308,9 +312,14 @@ class EventController extends Controller
         curl_close($curl);
 
         if ($err) {
-            return response()->json([
-                'error' => $err
-            ]);
+            // dd([
+            //     "lokasi" => "atas",
+            //     "data" => $result
+            // ]);
+            // return response()->json([
+            //     'error' => $err
+            // ]);
+            return false;
         } else {
             if (!isset($result->code)) {
                 TrxEvent::create([
@@ -324,13 +333,20 @@ class EventController extends Controller
                     'field_json' => $this->form
                 ]);
 
+                // dd([
+                //     "lokasi" => "success",
+                //     "data" => $result
+                // ]);
+
                 return true;
             } else {
                 $response = $this->refresh_token();
                 if (isset($response->error) || isset($response->code)) {
-                    return response()->json([
-                        'error' => $result
-                    ]);
+                    // return response()->json([
+                    //     'error' => $result
+                    // ]);
+                    return false;
+                    dd($response);
                 } else {
                     $zoomData = MstZoom::findOrFail($this->zoomAccountId);
                     $zoomData->access_token = json_encode($response);
