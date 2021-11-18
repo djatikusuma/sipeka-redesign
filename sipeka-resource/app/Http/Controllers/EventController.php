@@ -68,7 +68,8 @@ class EventController extends Controller
         ]);
 
         $response = $this->create_zoom($request->all());
-        if ($response) {
+
+        if ($response || $response == null) {
             return redirect()->route('event.index')->with('success', 'Berhasil menambah kegiatan');
         }else {
             return redirect()->route('event.index')->with('error', 'Gagal menambah kegiatan');
@@ -312,13 +313,15 @@ class EventController extends Controller
         curl_close($curl);
 
         if ($err) {
-            // dd([
-            //     "lokasi" => "atas",
-            //     "data" => $result
-            // ]);
+            dd([
+                "lokasi" => "atas",
+                "data" => $result,
+                "err" => $err
+            ]);
             // return response()->json([
             //     'error' => $err
             // ]);
+            // return redirect()->route('event.index')->with('error', 'Gagal menambah kegiatan');
             return false;
         } else {
             if (!isset($result->code)) {
@@ -343,10 +346,10 @@ class EventController extends Controller
                 $response = $this->refresh_token();
                 if (isset($response->error) || isset($response->code)) {
                     // return response()->json([
-                    //     'error' => $result
+                    //     'error' => $response
                     // ]);
                     return false;
-                    dd($response);
+                    // return redirect()->route('event.index')->with('error', 'Gagal menambah kegiatan');
                 } else {
                     $zoomData = MstZoom::findOrFail($this->zoomAccountId);
                     $zoomData->access_token = json_encode($response);

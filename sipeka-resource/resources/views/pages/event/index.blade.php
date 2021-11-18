@@ -120,6 +120,18 @@ Link Form Kehadiran\t : ${presensi}`;
                             data: {
                                 "_token": "{{ csrf_token() }}",
                             },
+                            beforeSend: function() {
+                                Swal.fire({
+                                    title: 'Sedang memproses !',
+                                    html: 'Mohon tunggu',// add html attribute if you want or remove
+                                    allowOutsideClick: false,
+                                    showCancelButton: false,
+                                    showConfirmButton: false,
+                                    onBeforeOpen: () => {
+                                        Swal.showLoading()
+                                    },
+                                });
+                            },
                             success: function(data) {
                                 if (data.success) {
                                     window.location.reload(false);
