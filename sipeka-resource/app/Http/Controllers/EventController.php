@@ -88,8 +88,13 @@ class EventController extends Controller
     {
         $event = TrxEvent::findOrFail($id);
 
-        if ($this->update_zoom($request->all(), json_decode($event->zoom_json), $id)) {
+        $response = $this->update_zoom($request->all(), json_decode($event->zoom_json), $id);
+
+        if ($response || $response == null) {
             return redirect()->route('event.index')->with('success', 'Berhasil mengubah kegiatan');
+        }else {
+            return redirect()->route('event.index')->with('error', 'Gagal mengubah kegiatan');
+            // dd($response);
         }
     }
 
@@ -423,9 +428,10 @@ class EventController extends Controller
         } else {
             $response = $this->refresh_token();
             if (isset($response->error) || isset($response->code)) {
-                return response()->json([
-                    'error' => $response
-                ]);
+                // return response()->json([
+                //     'error' => $response
+                // ]);
+                return false;
             } else {
                 $zoomData = MstZoom::findOrFail($this->zoomAccountId);
                 $zoomData->access_token = json_encode($response);
