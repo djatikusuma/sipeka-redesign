@@ -78,7 +78,7 @@ class UserController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make('d1sbun2021'),
+                'password' => Hash::make('s1p3k4'),
                 'unor_id' => $request->unors
             ]);
 
