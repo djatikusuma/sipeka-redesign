@@ -1,23 +1,23 @@
 @if ($message = Session::get('success'))
 <script>
-  swal("{{ $message }}", "success")
+  toastr.success("{{ $message }}", "Berhasil")
 </script>
 @endif
 
 @if ($message = Session::get('error'))
 <script>
-  swal("{{ $message }}", "error")
+  toastr.error("{{ $message }}", "Gagal")
 </script>
 @endif
 
 @if ($message = Session::get('warning'))
 <script>
-  swal("{{ $message }}", "warning")
+  toastr.error("{{ $message }}", "Peringatan")
 </script>
 @endif
 
 @if ($message = Session::get('info'))
 <script>
-  swal("{{ $message }}", "info")
+  toastr.success("{{ $message }}", "Informasi")
 </script>
 @endif

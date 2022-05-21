@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\MstZoom;
 use App\Models\Setting;
 use App\Models\TrxEvent;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -110,7 +111,7 @@ class EventController extends Controller
                 $zoom = json_decode($row->zoom_json);
                 $data = json_encode([
                     "topic" => $row->topic,
-                    "meeting_date" => $row->meeting_date,
+                    "meeting_date" => Carbon::parse($row->meeting_date)->translatedFormat('d F Y G:i'),
                     "url" => $zoom->join_url,
                     "presensi" => route('presence.index', $row->id),
                     "meeting_id" => $row->meeting_id,

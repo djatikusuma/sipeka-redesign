@@ -92,11 +92,7 @@ Link Form Kehadiran\t : ${presensi}`;
                 e.preventDefault();
 
                 $("#invite_zoom").select();
-                Swal.fire({
-                    title: "Berhasil menyalin undangan",
-                    showConfirmButton: !1,
-                    timer: 1500
-                })
+                toastr.success("Undangan telah disalin.", "Berhasil!");
                 document.execCommand("copy");
             });
             $(document).on('click', '#btn-delete', function(e) {
