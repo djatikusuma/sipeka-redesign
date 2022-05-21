@@ -318,18 +318,10 @@ class EventController extends Controller
         curl_close($curl);
 
         if ($err) {
-            dd([
-                "lokasi" => "atas",
-                "data" => $result,
-                "err" => $err
-            ]);
-            // return response()->json([
-            //     'error' => $err
-            // ]);
-            // return redirect()->route('event.index')->with('error', 'Gagal menambah kegiatan');
-            return false;
+            return redirect()->route('event.index')->with('error', 'Terjadi kesalahan saat membuat kegiatan.');
         } else {
             if (!isset($result->code)) {
+
                 TrxEvent::create([
                     'user_id' => Auth::user()->id,
                     'topic' => $result->topic,
@@ -341,20 +333,11 @@ class EventController extends Controller
                     'field_json' => $this->form
                 ]);
 
-                // dd([
-                //     "lokasi" => "success",
-                //     "data" => $result
-                // ]);
-
                 return true;
             } else {
                 $response = $this->refresh_token();
                 if (isset($response->error) || isset($response->code)) {
-                    // return response()->json([
-                    //     'error' => $response
-                    // ]);
-                    return false;
-                    // return redirect()->route('event.index')->with('error', 'Gagal menambah kegiatan');
+                    return redirect()->route('event.index')->with('error', 'Terjadi kesalahan pada sistem.');
                 } else {
                     $zoomData = MstZoom::findOrFail($this->zoomAccountId);
                     $zoomData->access_token = json_encode($response);
@@ -428,10 +411,7 @@ class EventController extends Controller
         } else {
             $response = $this->refresh_token();
             if (isset($response->error) || isset($response->code)) {
-                // return response()->json([
-                //     'error' => $response
-                // ]);
-                return false;
+                return redirect()->route('event.index')->with('error', 'Terjadi kesalahan pada sistem.');
             } else {
                 $zoomData = MstZoom::findOrFail($this->zoomAccountId);
                 $zoomData->access_token = json_encode($response);
