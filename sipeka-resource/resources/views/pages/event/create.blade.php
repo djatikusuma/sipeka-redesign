@@ -22,6 +22,18 @@
                 <x-field-input label-name="Nama Kegiatan" field-name="meeting_topic" placeholder="Isikan nama kegiatan" />
 
                 <div class="fv-row mb-8 w-250px">
+                    <label for="is_internal" class="fw-bold form-label required">Tipe Kegiatan</label>
+                    <div class="radio-inline">
+                        <label class="radio">
+                        <input type="radio" value="1" name="is_internal" checked />
+                        <span></span>Internal</label>
+                        <label class="radio">
+                        <input type="radio" value="0" name="is_internal" />
+                        <span></span>Webinar</label>
+                    </div>
+                </div>
+
+                <div class="fv-row mb-8 w-250px">
                     <label for="meeting_date" class="fw-bold form-label required">Tanggal Kegiatan</label>
                     <input class="form-control form-control-solid" name="meeting_date" placeholder="Isikan tanggal kegiatan"
                         id="kt_meeting_date" />

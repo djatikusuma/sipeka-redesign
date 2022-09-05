@@ -58,7 +58,7 @@
                             <!--begin::Menu wrapper-->
                             <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click"
                                 data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                                <img src="{{ asset('themes/metronic/img/avatar/blank.png') }}" alt="metronic" />
+                                <img src="https://sidebar.jabarprov.go.id/asset/favicon.ico" alt="metronic" />
                             </div>
                             <!--begin::Menu-->
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
@@ -68,7 +68,7 @@
                                     <div class="menu-content d-flex align-items-center px-3">
                                         <!--begin::Avatar-->
                                         <div class="symbol symbol-50px me-5">
-                                            <img src="{{ asset('themes/metronic/img/avatar/blank.png') }}"
+                                            <img src="https://sidebar.jabarprov.go.id/asset/favicon.ico"
                                                 alt="metronic" />
                                         </div>
                                         <!--end::Avatar-->
@@ -92,9 +92,9 @@
                                 <div class="separator my-2"></div>
                                 <!--end::Menu separator-->
                                 <!--begin::Menu item-->
-                                <div class="menu-item px-5 my-1">
+                                {{-- <div class="menu-item px-5 my-1">
                                     <a href="#" class="menu-link px-5">Pengaturan Akun</a>
-                                </div>
+                                </div> --}}
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-5">

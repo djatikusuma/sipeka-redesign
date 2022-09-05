@@ -33,6 +33,18 @@
                 </div>
 
                 <div class="fv-row mb-8 w-250px">
+                    <label for="is_internal" class="fw-bold form-label required">Tipe Kegiatan</label>
+                    <div class="radio-inline">
+                        <label class="radio">
+                        <input type="radio" value="1" name="is_internal" {{ ((int) $event->is_internal === 1) ? "checked" : "" }} />
+                        <span></span>Internal</label>
+                        <label class="radio">
+                        <input type="radio" value="0" name="is_internal" {{ ((int) $event->is_internal === 0) ? "checked" : "" }} />
+                        <span></span>Webinar</label>
+                    </div>
+                </div>
+
+                <div class="fv-row mb-8 w-250px">
                     <label for="meeting_date" class="fw-bold form-label required">Tanggal Kegiatan</label>
                     <input class="form-control form-control-solid" name="meeting_date" value="{{ old('meeting_date') ?? $event->meeting_date }}"
                         id="kt_meeting_date" />

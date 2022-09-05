@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="http://disbun.jabarprov.go.id/tmplts/disbun/assets/images/favicon.ico" />
+    <link rel="shortcut icon" href="https://sidebar.jabarprov.go.id/asset/favicon.ico">
 
-    <title>@yield('meta_title') - {{ config('app.name', 'Sinanas') }}</title>
+    <title>@yield('meta_title') - {{ config('app.name', 'Sipeka') }}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <link rel="stylesheet" href="{{ asset('themes/metronic/plugins/global/plugins.bundle.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/metronic/css/style.bundle.css') }}">

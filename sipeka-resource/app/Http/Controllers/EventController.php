@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Auth;
 class EventController extends Controller
 {
 
-    private $form = '[{"id":"nama_lengkap","label":"Nama Lengkap","type":"text","mandatory":"required","source":"input"},{"id":"nip","label":"NIP","type":"text","mandatory":"required","source":"input"},{"id":"jabatan","label":"Jabatan","type":"text","mandatory":"required","source":"input"},{"id":"unit_kerja","label":"Unit Kerja","type":"text","mandatory":"required","source":"input"}]';
+    private $formInternal = '[{"id":"nama_lengkap","label":"Nama Lengkap","type":"text","mandatory":"required","source":"input"},{"id":"nip","label":"NIP","type":"text","mandatory":"required","source":"input"},{"id":"jabatan","label":"Jabatan","type":"text","mandatory":"required","source":"input"},{"id":"unit_kerja","label":"Unit Kerja","type":"text","mandatory":"required","source":"input"}]';
+    private $formWebinar = '[{"id":"nama_lengkap","label":"Nama Lengkap","type":"text","mandatory":"required","source":"input"},{"id":"jabatan","label":"Jabatan","type":"text","mandatory":"","source":"input"},{"id":"unit_kerja","label":"Instansi/Lembaga","type":"text","mandatory":"","source":"input"},{"id":"no_telp","label":"No. Telp / WA","type":"text","mandatory":"","source":"input"},{"id":"email","label":"Alamat Email","type":"text","mandatory":"required","source":"input"}]';
     private $clientId;
     private $clientSecret;
     private $token;
@@ -318,10 +319,14 @@ class EventController extends Controller
         $err = curl_error($curl);
         curl_close($curl);
 
+
+
         if ($err) {
-            return redirect()->route('event.index')->with('error', 'Terjadi kesalahan saat membuat kegiatan.');
+            return redirect()->route('event.index')->with('error', 'Terjadi kesalahan sistem.');
+            exit(0);
         } else {
             if (!isset($result->code)) {
+                $form = (int)$data['is_internal'] !== 1 ? $this->formWebinar : $this->formInternal;
 
                 TrxEvent::create([
                     'user_id' => Auth::user()->id,
@@ -331,14 +336,15 @@ class EventController extends Controller
                     'meeting_date' => date('Y-m-d H:i:s', strtotime($result->start_time)),
                     'meeting_duration' => $result->duration,
                     'zoom_json' => json_encode($result),
-                    'field_json' => $this->form
+                    'field_json' => (int)$form
                 ]);
 
                 return true;
             } else {
                 $response = $this->refresh_token();
                 if (isset($response->error) || isset($response->code)) {
-                    return redirect()->route('event.index')->with('error', 'Terjadi kesalahan pada sistem.');
+                    return redirect()->route('event.index')->with('error', 'Terjadi kesalahan pada saat membuat kegiatan.');
+                    exit(0);
                 } else {
                     $zoomData = MstZoom::findOrFail($this->zoomAccountId);
                     $zoomData->access_token = json_encode($response);
@@ -392,6 +398,8 @@ class EventController extends Controller
         // print_data($result);
 
         if (!isset($result->code)) {
+            $form = (int)$data['is_internal'] !== 1 ? $this->formWebinar : $this->formInternal;
+
             // edit zoom json
             $zoom->topic = $data['meeting_topic'];
             $zoom->duration = $data['meeting_duration'];
@@ -404,7 +412,7 @@ class EventController extends Controller
             $event->meeting_id = $zoom->id;
             $event->meeting_duration = $data['meeting_duration'];
             $event->meeting_passcode = $data['meeting_passcode'];
-            $event->field_json = $this->form;
+            $event->field_json = (int)$form;
             $event->meeting_date = date("Y-m-d\TH:i:s", strtotime(date($data['meeting_date'])));
             $event->update();
 
