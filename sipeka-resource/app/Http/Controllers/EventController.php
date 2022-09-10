@@ -158,7 +158,7 @@ class EventController extends Controller
                             </svg><!--end::Svg Icon-->
                         </span>
                     </a>
-                    <a href="' . route('presence.list', $row->id) . '" id="btn-absensi-list" title="List Form Kehadiran" data-href="http://disbun.jabarprov.go.id/sipeka/absen/cek/ec96b468-d978-48ff-8857-b046926016eb" class="btn btn-sm btn-light-warning px-2 py-2">
+                    <a href="' . route('presence.list', $row->id) . '" target="_blank" id="btn-absensi-list" title="List Form Kehadiran" data-href="http://disbun.jabarprov.go.id/sipeka/absen/cek/ec96b468-d978-48ff-8857-b046926016eb" class="btn btn-sm btn-light-warning px-2 py-2">
                         <span class="svg-icon svg-icon-muted svg-icon-md m-0">
                             <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Text/Bullet-list.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -181,7 +181,7 @@ class EventController extends Controller
                         </span>
                     </button>';
                 } else {
-                    return '<a href="' . route('print_certificate.index', $row->id) . '" id="btn-print" title="Cetak Sertifikat" data-href="' . route('print_certificate.index', $row->id) . '" class="btn btn-sm btn-light-primary px-2 py-2">
+                    return '<a href="' . route('print_certificate.index', $row->id) . '" target="_blank" id="btn-print-certificate" title="Cetak Sertifikat" data-href="' . route('print_certificate.index', $row->id) . '" class="btn btn-sm btn-light-primary px-2 py-2">
                                 <span class="svg-icon svg-icon-muted svg-icon-md m-0">
                                     <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Communication/Add-user.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -192,7 +192,7 @@ class EventController extends Controller
                                     </svg><!--end::Svg Icon-->
                                 </span>
                             </a>
-                            <a href="' . route('presence.print', $row->id) . '" id="btn-print" title="Cetak Kehadiran" data-href="' . route('presence.print', $row->id) . '" class="btn btn-sm btn-light-info px-2 py-2">
+                            <a href="' . route('presence.print', $row->id) . '" target="_blank" id="btn-print" title="Cetak Kehadiran" data-href="' . route('presence.print', $row->id) . '" class="btn btn-sm btn-light-info px-2 py-2">
                                 <span class="svg-icon svg-icon-muted svg-icon-md m-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -209,7 +209,7 @@ class EventController extends Controller
                                     </svg>
                                 </span>
                             </a>
-                            <a href="' . route('presence.list', $row->id) . '" id="btn-absensi-list" title="List Form Kehadiran" data-href="http://disbun.jabarprov.go.id/sipeka/absen/cek/ec96b468-d978-48ff-8857-b046926016eb" class="btn btn-sm btn-light-warning px-2 py-2">
+                            <a href="' . route('presence.list', $row->id) . '" target="_blank" id="btn-absensi-list" title="List Form Kehadiran" data-href="http://disbun.jabarprov.go.id/sipeka/absen/cek/ec96b468-d978-48ff-8857-b046926016eb" class="btn btn-sm btn-light-warning px-2 py-2">
                                 <span class="svg-icon svg-icon-muted svg-icon-md m-0">
                                     <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Text/Bullet-list.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -440,19 +440,6 @@ class EventController extends Controller
             $uniqId = uniqid();
             $certificate_file = $data['certificate_file'];
 
-
-            $event->zoom_json = json_encode($zoom);
-            $event->topic = $data['meeting_topic'];
-            $event->meeting_id = $zoom->id;
-            $event->meeting_duration = $data['meeting_duration'];
-            $event->meeting_passcode = $data['meeting_passcode'];
-            $event->field_json = $form;
-            $event->meeting_date = date("Y-m-d\TH:i:s", strtotime(date($data['meeting_date'])));
-            $event->file_certificate = isset($certificate_file)
-                                        ? $name_file = $uniqId . '_' . trim($certificate_file->getClientOriginalName())
-                                        : $event->file_certificate;
-
-
             $path = storage_path('app/public/user_certificate/');
             if(isset($certificate_file) && !is_null($certificate_file)){
                 if(!is_null($event->file_certificate)){
@@ -464,8 +451,19 @@ class EventController extends Controller
                     }
                 }
 
-                $certificate_file->move($path, $name_file);
+                $certificate_file->move($path, $name_file = $name_file = $uniqId . '_' . trim($certificate_file->getClientOriginalName()));
             }
+
+            $event->zoom_json = json_encode($zoom);
+            $event->topic = $data['meeting_topic'];
+            $event->meeting_id = $zoom->id;
+            $event->meeting_duration = $data['meeting_duration'];
+            $event->meeting_passcode = $data['meeting_passcode'];
+            $event->field_json = $form;
+            $event->meeting_date = date("Y-m-d\TH:i:s", strtotime(date($data['meeting_date'])));
+            $event->file_certificate = isset($certificate_file)
+                                        ? $name_file
+                                        : $event->file_certificate;
 
             $event->update();
 

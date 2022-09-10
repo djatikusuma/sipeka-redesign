@@ -94,6 +94,9 @@
                             <input type="file" name="certificate_file" class="custom-file-input" id="certificate_file">
                         </div>
                     </div>
+                    @if(isset($event->file_certificate) && !is_null($event->file_certificate))
+                    <a href="{{route('certificate.show', $event->id) }}" target="_blank">Lihat File Sebelumnya</a>
+                    @endif
                 </div>
 
                 <button type="submit" id="form_create_user_submit" class="btn btn-light-info fs-5 w-100">
