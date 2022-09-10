@@ -5,7 +5,7 @@
     <div class="card mb-5 mb-xl-8">
         <div class="card-body">
             <form class="form w-100" id="form_create_user" action="{{ route('event.store') }}" method="POST"
-                autocomplete="off">
+                autocomplete="off" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="fv-row mb-8">
@@ -24,10 +24,10 @@
                 <div class="fv-row mb-8 w-250px">
                     <label for="is_internal" class="fw-bold form-label required">Tipe Kegiatan</label>
                     <div class="radio-inline">
-                        <label class="radio">
+                        <label class="radio radio-solid">
                         <input type="radio" value="1" name="is_internal" checked />
                         <span></span>Internal</label>
-                        <label class="radio">
+                        <label class="radio radio-solid">
                         <input type="radio" value="0" name="is_internal" />
                         <span></span>Webinar</label>
                     </div>
@@ -69,6 +69,18 @@
                             <div data-field="flatpickr_input" data-validator="notEmpty">{{ $message }}</div>
                         </div>
                     @enderror
+                </div>
+
+                <div class="fv-row mb-8 w-250px">
+                    <div class="form-group">
+                        <label>File Sertifikat</label>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                            title="Maksimal ukuran file adalah 1 MB dan Format file PDF dengan Ukuran A4"></i>
+                        <div></div>
+                        <div class="custom-file">
+                            <input type="file" name="certificate_file" class="custom-file-input" id="certificate_file">
+                        </div>
+                    </div>
                 </div>
 
                 <button type="submit" id="form_create_user_submit" class="btn btn-light-info fs-5 w-100">

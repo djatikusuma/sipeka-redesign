@@ -6,11 +6,10 @@ use Carbon\Carbon;
 use App\Models\MstZoom;
 use App\Models\Setting;
 use App\Models\TrxEvent;
-use claviska\SimpleImage;
-use Exception;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class EventController extends Controller
 {
@@ -182,7 +181,7 @@ class EventController extends Controller
                         </span>
                     </button>';
                 } else {
-                    return '<a href="' . route('presence.print', $row->id) . '" id="btn-print" title="Cetak Kehadiran" data-href="' . route('presence.print', $row->id) . '" class="btn btn-sm btn-light-primary px-2 py-2">
+                    return '<a href="' . route('print_certificate.index', $row->id) . '" id="btn-print" title="Cetak Sertifikat" data-href="' . route('print_certificate.index', $row->id) . '" class="btn btn-sm btn-light-primary px-2 py-2">
                                 <span class="svg-icon svg-icon-muted svg-icon-md m-0">
                                     <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Communication/Add-user.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -191,6 +190,23 @@ class EventController extends Controller
                                             <rect fill="#000000" opacity="0.3" x="8" y="2" width="8" height="2" rx="1"/>
                                         </g>
                                     </svg><!--end::Svg Icon-->
+                                </span>
+                            </a>
+                            <a href="' . route('presence.print', $row->id) . '" id="btn-print" title="Cetak Kehadiran" data-href="' . route('presence.print', $row->id) . '" class="btn btn-sm btn-light-info px-2 py-2">
+                                <span class="svg-icon svg-icon-muted svg-icon-md m-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24"/>
+                                            <path d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z" fill="#000000" opacity="0.3"/>
+                                            <path d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z" fill="#000000"/>
+                                            <rect fill="#000000" opacity="0.3" x="10" y="9" width="7" height="2" rx="1"/>
+                                            <rect fill="#000000" opacity="0.3" x="7" y="9" width="2" height="2" rx="1"/>
+                                            <rect fill="#000000" opacity="0.3" x="7" y="13" width="2" height="2" rx="1"/>
+                                            <rect fill="#000000" opacity="0.3" x="10" y="13" width="7" height="2" rx="1"/>
+                                            <rect fill="#000000" opacity="0.3" x="7" y="17" width="2" height="2" rx="1"/>
+                                            <rect fill="#000000" opacity="0.3" x="10" y="17" width="7" height="2" rx="1"/>
+                                        </g>
+                                    </svg>
                                 </span>
                             </a>
                             <a href="' . route('presence.list', $row->id) . '" id="btn-absensi-list" title="List Form Kehadiran" data-href="http://disbun.jabarprov.go.id/sipeka/absen/cek/ec96b468-d978-48ff-8857-b046926016eb" class="btn btn-sm btn-light-warning px-2 py-2">
@@ -330,6 +346,9 @@ class EventController extends Controller
             if (!isset($result->code)) {
                 $form = (int)$data['is_internal'] !== 1 ? $this->formWebinar : $this->formInternal;
 
+                $uniqId = uniqid();
+                $certificate_file = $data['certificate_file'];
+
                 TrxEvent::create([
                     'user_id' => Auth::user()->id,
                     'topic' => $result->topic,
@@ -338,8 +357,16 @@ class EventController extends Controller
                     'meeting_date' => date('Y-m-d H:i:s', strtotime($result->start_time)),
                     'meeting_duration' => $result->duration,
                     'zoom_json' => json_encode($result),
-                    'field_json' => (int)$form
+                    'field_json' => $form,
+                    'file_certificate' => isset($certificate_file)
+                                            ? $name_file = $uniqId . '_' . trim($certificate_file->getClientOriginalName())
+                                            : null
                 ]);
+
+                if(isset($certificate_file)){
+                    $path = storage_path('app/public/user_certificate/');
+                    $certificate_file->move($path, $name_file);
+                }
 
                 return true;
             } else {
@@ -409,13 +436,37 @@ class EventController extends Controller
             $zoom->start_time = date("Y-m-d\TH:i:s", strtotime(date($data['meeting_date'])));
 
             $event = TrxEvent::findOrFail($id);
+
+            $uniqId = uniqid();
+            $certificate_file = $data['certificate_file'];
+
+
             $event->zoom_json = json_encode($zoom);
             $event->topic = $data['meeting_topic'];
             $event->meeting_id = $zoom->id;
             $event->meeting_duration = $data['meeting_duration'];
             $event->meeting_passcode = $data['meeting_passcode'];
-            $event->field_json = (int)$form;
+            $event->field_json = $form;
             $event->meeting_date = date("Y-m-d\TH:i:s", strtotime(date($data['meeting_date'])));
+            $event->file_certificate = isset($certificate_file)
+                                        ? $name_file = $uniqId . '_' . trim($certificate_file->getClientOriginalName())
+                                        : $event->file_certificate;
+
+
+            $path = storage_path('app/public/user_certificate/');
+            if(isset($certificate_file) && !is_null($certificate_file)){
+                if(!is_null($event->file_certificate)){
+                    $file = storage_path('app/public/user_certificate/'.$event->file_certificate);
+                    if(File::exists($file)){
+                        File::delete($file);
+                    }else{
+                        dd('File does not exists.');
+                    }
+                }
+
+                $certificate_file->move($path, $name_file);
+            }
+
             $event->update();
 
             return true;

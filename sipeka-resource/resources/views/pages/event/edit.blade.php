@@ -5,7 +5,7 @@
     <div class="card mb-5 mb-xl-8">
         <div class="card-body">
             <form class="form w-100" id="form_create_user" action="{{ route('event.update', $event->id) }}" method="POST"
-                autocomplete="off">
+                autocomplete="off" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -82,6 +82,18 @@
                             <div data-field="flatpickr_input" data-validator="notEmpty">{{ $message }}</div>
                         </div>
                     @enderror
+                </div>
+
+                <div class="fv-row mb-8 w-250px">
+                    <div class="form-group">
+                        <label>File Sertifikat</label>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                            title="Maksimal ukuran file adalah 1 MB dan Format file PDF dengan Ukuran A4"></i>
+                        <div></div>
+                        <div class="custom-file">
+                            <input type="file" name="certificate_file" class="custom-file-input" id="certificate_file">
+                        </div>
+                    </div>
                 </div>
 
                 <button type="submit" id="form_create_user_submit" class="btn btn-light-info fs-5 w-100">

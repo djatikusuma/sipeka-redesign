@@ -32,8 +32,6 @@ Route::get('/presence/{id}/data', [PresenceController::class, 'showDatatable'])-
 Route::post('/password/{id}/{type}', [PresenceController::class, 'checkPassword'])->name('password.check');
 Route::get('/event/public/list', [EventController::class, 'showDatatablePublic'])->name('event.list_public');
 
-// Route::get('/print/certificate', [CertificateController::class, 'print_certificate'])->name('print_certificate.index');
-
 Route::middleware(['auth', 'user.menu'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -118,6 +116,7 @@ Route::middleware(['auth', 'user.menu'])->group(function () {
     Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('event.delete');
 
     Route::get('/presence/{id}/print', [PresenceController::class, 'print'])->name('presence.print');
+    Route::get('/certificate/{id}/print', [CertificateController::class, 'print_certificate'])->name('print_certificate.index');
 });
 
 require __DIR__ . '/auth.php';

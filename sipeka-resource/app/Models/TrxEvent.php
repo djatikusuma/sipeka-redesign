@@ -23,7 +23,8 @@ class TrxEvent extends Model
         'meeting_date',
         'zoom_json',
         'field_json',
-        'status'
+        'status',
+        'file_certificate'
     ];
 
     // casting
