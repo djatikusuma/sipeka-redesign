@@ -76,7 +76,6 @@ class MenuController extends Controller
 
             // create menu
             $menu = Menu::create([
-                'uuid' => Uuid::uuid4(),
                 'label' => $request->label,
                 'icon' => $request->icon,
                 'permission' => "{$request->permission}.index",

@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Models\MstZoom;
 use App\Models\Setting;
 use App\Models\TrxEvent;
+use claviska\SimpleImage;
+use Exception;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;

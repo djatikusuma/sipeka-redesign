@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\DataMaster\MenuController;
+use App\Http\Controllers\DataMaster\SettingController;
 use App\Http\Controllers\DataMaster\UnorController;
 use App\Http\Controllers\DataMaster\UserController;
 use App\Http\Controllers\EventController;
@@ -30,6 +32,8 @@ Route::get('/presence/{id}/data', [PresenceController::class, 'showDatatable'])-
 Route::post('/password/{id}/{type}', [PresenceController::class, 'checkPassword'])->name('password.check');
 Route::get('/event/public/list', [EventController::class, 'showDatatablePublic'])->name('event.list_public');
 
+// Route::get('/print/certificate', [CertificateController::class, 'print_certificate'])->name('print_certificate.index');
+
 Route::middleware(['auth', 'user.menu'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -54,6 +58,10 @@ Route::middleware(['auth', 'user.menu'])->group(function () {
         Route::put('/menus/{id}/edit', [MenuController::class, 'update'])->name('menus.update');
         Route::delete('/menus/{id}', [MenuController::class, 'destroy'])->name('menus.delete');
 
+        // Route Setting
+        Route::get('/setting', [SettingController::class, 'index'])->name('settings.index');
+        Route::get('/setting/sync', [SettingController::class, 'sync'])->name('settings.sync');
+        Route::put('/setting', [SettingController::class, 'store'])->name('settings.store');
 
         Route::get('/roles', function () {
             return view('dashboard');

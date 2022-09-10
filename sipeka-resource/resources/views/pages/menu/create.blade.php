@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('meta_title', 'Buat Pengguna Baru')
+@section('meta_title', 'Buat Menu Baru')
 
 @section('content')
     <div class="card mb-5 mb-xl-8">
