@@ -6,6 +6,7 @@ use App\Http\Controllers\DataMaster\SettingController;
 use App\Http\Controllers\DataMaster\UnorController;
 use App\Http\Controllers\DataMaster\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PresenceController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,9 +34,7 @@ Route::post('/password/{id}/{type}', [PresenceController::class, 'checkPassword'
 Route::get('/event/public/list', [EventController::class, 'showDatatablePublic'])->name('event.list_public');
 
 Route::middleware(['auth', 'user.menu'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard.index');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard.index');
 
     Route::prefix('master')->group(function () {
         // Route Users
