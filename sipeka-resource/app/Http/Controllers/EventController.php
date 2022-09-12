@@ -347,7 +347,7 @@ class EventController extends Controller
                 $form = (int)$data['is_internal'] !== 1 ? $this->formWebinar : $this->formInternal;
 
                 $uniqId = uniqid();
-                $certificate_file = $data['certificate_file'];
+                $certificate_file = isset($data['certificate_file']) ? $data['certificate_file'] : null;
 
                 TrxEvent::create([
                     'user_id' => Auth::user()->id,
@@ -438,7 +438,7 @@ class EventController extends Controller
             $event = TrxEvent::findOrFail($id);
 
             $uniqId = uniqid();
-            $certificate_file = $data['certificate_file'];
+            $certificate_file = isset($data['certificate_file']) ? $data['certificate_file'] : null;
 
             $path = storage_path('app/public/user_certificate/');
             if(isset($certificate_file) && !is_null($certificate_file)){
