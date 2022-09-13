@@ -92,9 +92,9 @@
                                 <div class="separator my-2"></div>
                                 <!--end::Menu separator-->
                                 <!--begin::Menu item-->
-                                {{-- <div class="menu-item px-5 my-1">
-                                    <a href="#" class="menu-link px-5">Pengaturan Akun</a>
-                                </div> --}}
+                                <div class="menu-item px-5 my-1">
+                                    <a href="{{ route('change_password.index') }}" class="menu-link px-5">Ubah Kata Sandi</a>
+                                </div>
                                 <!--end::Menu item-->
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-5">

@@ -8,6 +8,7 @@ use App\Http\Controllers\DataMaster\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PresenceController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -120,6 +121,9 @@ Route::middleware(['auth', 'user.menu'])->group(function () {
         Route::get('/{id}/print', [CertificateController::class, 'print_certificate'])->name('print_certificate.index');
         Route::get('/{id}', [CertificateController::class, 'show_certificate'])->name('certificate.show');
     });
+
+    Route::get('/change_password', [ProfileController::class, 'change_password'])->name('change_password.index');
+    Route::put('/change_password', [ProfileController::class, 'update_password'])->name('change_password.update');
 });
 
 require __DIR__ . '/auth.php';
