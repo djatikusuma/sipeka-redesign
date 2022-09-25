@@ -23,7 +23,7 @@
                 <div class="fv-row mb-8 w-250px">
                     <label for="meeting_topic" class="fw-bold form-label required">Nama Kegiatan</label>
                     <input type="text" name="meeting_topic" id="meeting_topic"
-                        class="form-control form-control-solid" placeholder="Isikan nama kegiatan"
+                        class="form-control" placeholder="Isikan nama kegiatan"
                         value="{{ old('meeting_topic') ?? $event->topic }}" />
                     @error('meeting_topic')
                         <div class="fv-plugins-message-container invalid-feedback">
@@ -46,7 +46,7 @@
 
                 <div class="fv-row mb-8 w-250px">
                     <label for="meeting_date" class="fw-bold form-label required">Tanggal Kegiatan</label>
-                    <input class="form-control form-control-solid" name="meeting_date" value="{{ old('meeting_date') ?? $event->meeting_date }}"
+                    <input class="form-control" name="meeting_date" value="{{ old('meeting_date') ?? $event->meeting_date }}"
                         id="kt_meeting_date" />
                     @error('meeting_date')
                         <div class="fv-plugins-message-container invalid-feedback">
@@ -57,7 +57,7 @@
 
                 <div class="fv-row mb-8 w-250px">
                     <label for="meeting_duration" class="fw-bold form-label required">Durasi Absensi</label>
-                    <select class="form-select form-select-solid" name="meeting_duration" data-control="select2"
+                    <select class="form-select" name="meeting_duration" data-control="select2"
                         data-placeholder="Select an option" data-hide-search="true">
                         @php
                             $time = 60;

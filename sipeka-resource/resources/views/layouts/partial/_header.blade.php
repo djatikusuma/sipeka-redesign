@@ -1,6 +1,6 @@
 <div id="kt_header" style="" class="header align-items-stretch">
     <!--begin::Container-->
-    <div class="container-fluid d-flex align-items-stretch justify-content-between">
+    <div class="container-fluid d-flex align-items-stretch justify-content-between" style="border-bottom: 2px solid var(--bs-green)">
         @auth
             <!--begin::Aside mobile toggle-->
             <div class="d-flex align-items-center d-lg-none ms-n3 me-1" title="Show aside menu">
@@ -58,7 +58,7 @@
                             <!--begin::Menu wrapper-->
                             <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click"
                                 data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                                <img src="https://sidebar.jabarprov.go.id/asset/favicon.ico" alt="metronic" />
+                                <img src="https://sidebar.jabarprov.go.id/asset/favicon.ico" alt="sipeka" />
                             </div>
                             <!--begin::Menu-->
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
@@ -69,7 +69,7 @@
                                         <!--begin::Avatar-->
                                         <div class="symbol symbol-50px me-5">
                                             <img src="https://sidebar.jabarprov.go.id/asset/favicon.ico"
-                                                alt="metronic" />
+                                                alt="sipeka" />
                                         </div>
                                         <!--end::Avatar-->
                                         <!--begin::Username-->

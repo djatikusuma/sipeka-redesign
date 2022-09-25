@@ -10,7 +10,7 @@
     <title>@yield('meta_title') - {{ config('app.name', 'Sipeka') }}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <link rel="stylesheet" href="{{ asset('themes/metronic/plugins/global/plugins.bundle.css') }}">
-    <link rel="stylesheet" href="{{ asset('themes/metronic/css/style.bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/metronic/css/style.jabar.css') }}">
     {!! ReCaptcha::htmlScriptTagJsApi() !!}
 
     @stack('styles')
@@ -25,7 +25,7 @@
                 data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}"
                 data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}"
                 data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
-                <div class="aside-logo flex-column-auto" id="kt_aside_logo">
+                <div class="aside-logo flex-column-auto" id="kt_aside_logo" style="border-bottom: 2px solid var(--bs-green)">
                     <a href="#">
                         <img alt="Logo" src="{{ asset('themes/metronic/img/logo.svg') }}" class="h-40px logo" />
                     </a>

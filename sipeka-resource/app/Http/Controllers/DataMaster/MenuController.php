@@ -135,7 +135,13 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $menus = Menu::select("*")->whereNull('parent_id')->get();
+        $menu = Menu::findOrFail($id);
+
+        return view('pages.menu.edit',[
+            'menus' => $menus,
+            'menu' => $menu
+        ]);
     }
 
     /**
@@ -147,7 +153,39 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validation
+        $request->validate([
+            'label' => [
+                'required',
+                'max:100'
+            ],
+            'order' => [
+                'required'
+            ],
+        ]);
+
+        // update Menu
+        try {
+            DB::beginTransaction();
+
+            // create menu
+            $menu = Menu::findOrFail($id);
+
+            $menu->update([
+                'label' => $request->label,
+                'order' => $request->order,
+                'icon'  => $request->icon,
+                'parent_id' => $request->menus
+            ]);
+
+            DB::commit();
+
+            // return view
+            return redirect()->route('menus.index')->with('success', 'Berhasil mengubah menu '.$menu->label);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return redirect()->route('menus.index')->with('error', $e);
+        }
     }
 
     /**

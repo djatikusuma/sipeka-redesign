@@ -1,5 +1,5 @@
 <!--begin::Header-->
-<div id="kt_header" style="" class="header align-items-stretch">
+<div id="kt_header" style="border-bottom: 2px solid var(--bs-green)" class="header align-items-stretch">
     <!--begin::Container-->
     <div class="container-xxl d-flex align-items-stretch justify-content-between">
         <!--begin::Aside mobile toggle-->

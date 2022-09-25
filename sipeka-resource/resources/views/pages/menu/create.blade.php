@@ -23,7 +23,7 @@
 
                 <div class="fv-row mb-10">
                     <label for="icon" class="fw-bold form-label">Icon</label>
-                    <textarea rows="5" class="form-control form-control-solid" name="icon" value="{{ old('icon') }}"
+                    <textarea rows="5" class="form-control" name="icon" value="{{ old('icon') }}"
                         placeholder="Icon" autocomplete="off">{{ old('icon') }}</textarea>
                 </div>
 

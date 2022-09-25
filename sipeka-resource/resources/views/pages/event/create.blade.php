@@ -35,7 +35,7 @@
 
                 <div class="fv-row mb-8 w-250px">
                     <label for="meeting_date" class="fw-bold form-label required">Tanggal Kegiatan</label>
-                    <input class="form-control form-control-solid" name="meeting_date" placeholder="Isikan tanggal kegiatan"
+                    <input class="form-control" name="meeting_date" placeholder="Isikan tanggal kegiatan"
                         id="kt_meeting_date" />
                     @error('meeting_date')
                         <div class="fv-plugins-message-container invalid-feedback">
@@ -46,7 +46,7 @@
 
                 <div class="fv-row mb-8 w-250px">
                     <label for="meeting_duration" class="fw-bold form-label required">Durasi Absensi</label>
-                    <select class="form-select form-select-solid" name="meeting_duration" data-control="select2"
+                    <select class="form-select" name="meeting_duration" data-control="select2"
                         data-placeholder="Select an option" data-hide-search="true">
                         @php
                             $time = 60;
@@ -63,7 +63,7 @@
                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
                         title="Maksimal passcode 10 digit"></i>
                     <input type="text" maxlength="10" name="meeting_passcode" id="meeting_passcode"
-                        class="form-control form-control-solid" placeholder="Isikan passccode kegiatan" />
+                        class="form-control" placeholder="Isikan passccode kegiatan" />
                     @error('meeting_passcode')
                         <div class="fv-plugins-message-container invalid-feedback">
                             <div data-field="flatpickr_input" data-validator="notEmpty">{{ $message }}</div>
