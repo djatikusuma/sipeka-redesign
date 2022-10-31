@@ -36,9 +36,9 @@
                         success: function(data) {
                             if (data.success) {
                                 if (type == "input"){
-                                    window.location = window.location.hostname+window.location.pathname+"/presence/" + id
+                                    window.location = window.location.pathname+"presence/" + id
                                 }else {
-                                    window.location = window.location.hostname+window.location.pathname+"/presence/" + id + "/" + type
+                                    window.location = window.location.pathname+"presence/" + id + "/" + type
                                 }
                             }else {
                                 swal(data.message, "info")
