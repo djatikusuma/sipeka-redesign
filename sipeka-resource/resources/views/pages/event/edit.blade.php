@@ -34,13 +34,17 @@
 
                 <div class="fv-row mb-8 w-250px">
                     <label for="is_internal" class="fw-bold form-label required">Tipe Kegiatan</label>
-                    <div class="radio-inline">
-                        <label class="radio">
-                        <input type="radio" value="1" name="is_internal" {{ ((int) $event->is_internal === 1) ? "checked" : "" }} />
-                        <span></span>Internal</label>
-                        <label class="radio">
-                        <input type="radio" value="0" name="is_internal" {{ ((int) $event->is_internal === 0) ? "checked" : "" }} />
-                        <span></span>Webinar</label>
+                    <div class="radio-inline form-check mb-3">
+                        <input class="form-check-input" type="radio" value="1" name="is_internal" id="flexRadioDefault" {{ ((int) $event->is_internal === 1) ? "checked" : "" }}/>
+                        <label class="form-check-label" for="flexRadioDefault">
+                            Internal
+                        </label>
+                    </div>
+                    <div class="radio-inline form-check">
+                        <input class="form-check-input" type="radio" value="0" name="is_internal" id="flexRadioDefault" {{ ((int) $event->is_internal === 0) ? "checked" : "" }}/>
+                        <label class="form-check-label" for="flexRadioDefault">
+                            Eksternal
+                        </label>
                     </div>
                 </div>
 
