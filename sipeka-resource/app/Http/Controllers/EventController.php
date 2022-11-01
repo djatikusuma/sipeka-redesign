@@ -352,7 +352,7 @@ class EventController extends Controller
                 TrxEvent::create([
                     'user_id' => Auth::user()->id,
                     'topic' => $result->topic,
-                    'meeting_id' => $result->id,
+                    'meeting_id' => "{$result->id}",
                     'meeting_passcode' => $result->password,
                     'meeting_date' => date('Y-m-d H:i:s', strtotime($result->start_time)),
                     'meeting_duration' => $result->duration,
