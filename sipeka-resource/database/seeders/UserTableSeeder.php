@@ -36,7 +36,7 @@ class UserTableSeeder extends Seeder
             $user = User::create([
                 'name' => 'Subbagian Kepegawaian, Umum, dan Kehumasan',
                 'email' => 'kepegumhum@mail.com',
-                'password' => bcrypt('s1p3k4'),
+                'password' => bcrypt('password'),
                 'unor_id' => $sekre->id,
             ]);
             $user->assignRole('coordinator');
@@ -49,7 +49,7 @@ class UserTableSeeder extends Seeder
             $user = User::create([
                 'name' => 'Bidang Produksi',
                 'email' => 'produksi@mail.com',
-                'password' => bcrypt('s1p3k4'),
+                'password' => bcrypt('password'),
                 'unor_id' => $produksi->id,
             ]);
             $user->assignRole('coordinator');
